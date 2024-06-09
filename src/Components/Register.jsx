@@ -4,13 +4,33 @@ import conf from '../conf/conf';
 import Usercontext from '../Context/UserContext';
 import { account } from '../appwrite/Appwrite';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Client, Databases } from 'appwrite';
+const client = new Client()
+    .setEndpoint("https://cloud.appwrite.io/v1")
+    .setProject("66643bd1003d6c970924")
+const databases = new Databases(client)
 
-
+function addDocument(name,email){
+    const promise=databases.createDocument(
+        '66643e450033fd160bcc',
+        '6664925200043bb2ccfd',
+        ID.unique(),{
+         gamer:0,
+         user:name,
+         email:email
+        }
+    );
+    promise.then(function(response){
+        console.log(response)
+    },function(error){
+        console.log(error)
+    })
+}
 function Register() {
     const [name, setname] = useState('')
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
-     const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const signupfunc = async (e) => {
         e.preventDefault()
@@ -18,6 +38,7 @@ function Register() {
             ID.unique(), email, password, name
         )
         signuppromis.then((res) => {
+             addDocument(name,email);
             alert("successful registration!! Please Log in");
             navigate("/login", { replace: true })
         })

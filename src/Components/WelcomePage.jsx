@@ -20,7 +20,7 @@ function WelcomePage() {
     const check = () => {
         const info = account.get()
         info.then((res) => {
-            console.log(res)
+            // console.log(res)
             setuserinfo(res)
             navigate("/home")
         }).catch((err) => { console.log(err) })

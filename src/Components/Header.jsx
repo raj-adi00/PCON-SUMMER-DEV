@@ -7,16 +7,17 @@ import Usercontext from '../Context/UserContext';
 import { account } from '../appwrite/Appwrite';
 
 function Header() {
+    
     const { userinfo } = useContext(Usercontext)
-    const navigate=useNavigate()
-    const logout=async()=>{
-        try{
-            var y=await account.get()
+    const navigate = useNavigate()
+    const logout = async () => {
+        try {
+            var y = await account.get()
             console.log(y)
-            var x=await account.deleteSession("current");
-            navigate("/")
+            var x = await account.deleteSession("current");
+            navigate("/", { replace: true })
         }
-        catch(err){console.log(err)}
+        catch (err) { console.log(err) }
     }
     // console.log(userinfo)
     return (

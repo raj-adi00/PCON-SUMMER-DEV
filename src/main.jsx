@@ -9,6 +9,7 @@ import Register from './Components/Register.jsx'
 import Home from './Components/Home.jsx'
 import Services from './Components/Services.jsx'
 import Contact from './Components/Contact.jsx'
+import Leaderboard from './Components/Leaderboard.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path='home' element={<Home />} />
       <Route path='services' element={<Services />} />
       <Route path='contact' element={<Contact />} />
+      <Route path='leaderboard' element={<Leaderboard />}/>
     </Route>
   )
 )
