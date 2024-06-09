@@ -1,6 +1,9 @@
 // import conf from "../conf/conf";
 // import { Client, Account, ID } from "appwrite"
 
+
+import { account } from "./Appwrite";
+
 // export class Authservice {
 //     Client = new Client();
 //     account;
@@ -54,3 +57,6 @@
 
 // const authservice = new Authservice()
 // export default authservice
+export async function deletecurrentsession(){
+    await account.deleteSession('current')
+}

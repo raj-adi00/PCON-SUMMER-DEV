@@ -1,25 +1,30 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { account } from '../appwrite/Appwrite'
 import { Navigate, useNavigate } from 'react-router-dom';
+import { getLoggedInUser } from '../appwrite/Appwrite';
+import Usercontext from '../Context/UserContext';
 
 function Login() {
     const navigate = useNavigate()
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
-
+    const { setuserinfo } = useContext(Usercontext)
+    // useEffect(async() => {
+    //     console.log(1)
+    //     if (await account.get()) {
+    //         navigate("/home");
+    //     }
+    // }, [])
     const loginfunc = async (e) => {
         e.preventDefault();
-        try {
-            await account.createEmailPasswordSession(email, password);
-            console.log(1)
-            navigate("/home")
-        }
-        catch (err) {
-            // alert("something went wrong")
-            console.log(1);
-
-        }
+        const val = await account.createEmailPasswordSession(email, password);
+        navigate("/home")
     }
+
+
+
+
+
     return (
         <div className="bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex flex-col justify-center items-center">
             <h2 className="text-white text-2xl font-semibold mb-4 ">Login to My App</h2>

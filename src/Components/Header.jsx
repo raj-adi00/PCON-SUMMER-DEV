@@ -1,13 +1,24 @@
 
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Usercontext from '../Context/UserContext';
+import { account } from '../appwrite/Appwrite';
 
 function Header() {
     const { userinfo } = useContext(Usercontext)
-    console.log(userinfo)
+    const navigate=useNavigate()
+    const logout=async()=>{
+        try{
+            var y=await account.get()
+            console.log(y)
+            var x=await account.deleteSession("current");
+            navigate("/")
+        }
+        catch(err){console.log(err)}
+    }
+    // console.log(userinfo)
     return (
         <header className="bg-blue-500 py-4 px-4 sticky top-0">
             <div className="container mx-auto flex justify-between items-center">
@@ -62,6 +73,16 @@ function Header() {
                                 }
                             >
                                 <FontAwesomeIcon icon={faUser} size='lg' className='hover:cursor-pointer mx-2' />{userinfo.name}
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                onClick={logout}
+                                className={({ isActive }) =>
+                                    `text-xl border-2 px-1 border-white rounded-lg py-1  text-red-700 font-bold}`
+                                }
+                            >
+                                Logout
                             </NavLink>
                         </li>
                     </ul>
